@@ -2,10 +2,10 @@
 # dduks = list(map(int,input().split()))
 num, want_len = [4,6]
 dduks = [19, 15, 10, 17]
-dduks.sort(reverse=True)
-maxd = dduks[0]
 
 def myFunc():
+    dduks.sort(reverse=True)
+    maxd = dduks[0]
     cut = 0 #절단기
     tops = []
     left=0
@@ -22,3 +22,22 @@ def myFunc():
             left+=1
     print(maxd-cut)
     
+def bisearch():
+    end = max(dduks)
+    start = 0
+    result = 0
+    while(start<=end):
+        left = 0
+        mid = (end+start)//2
+        for i in dduks:
+            if(i>mid):
+                left+= i-mid
+        if(left<want_len):#만약 덜짤렸다면
+            end = mid-1
+        else:
+            start = mid+1
+            result = mid
+    return result
+
+print(bisearch())
+            
