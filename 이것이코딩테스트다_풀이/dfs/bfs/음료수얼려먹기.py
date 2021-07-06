@@ -1,6 +1,8 @@
 n,m = map(int, input().split())
 graph = [list(map(int,input())) for _ in range(n)]
 
+# graph = [ [100], [200] ]
+
 def dfs(x,y):
     if(x < 0 or x >= n or y < 0 or y >= m):
         return False
