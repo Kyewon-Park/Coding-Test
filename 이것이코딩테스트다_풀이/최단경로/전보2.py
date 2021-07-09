@@ -11,19 +11,17 @@ for i in range(m):
 
 def dijkstra(start):
     distance[start]=0
-    h=[]
-    heapq.heappush(h,(0,1))
-
-    while(h):
-        #gsn
-        dist,node = heapq.heappop(h)  
-        if(dist>distance[node]):
+    h = []
+    heapq.heappush(h,(0,start))
+    while h:
+        dist,now = heapq.heappop(h)
+        if(distance[now] < dist):
             continue
-        for i in graph[node]:
-            cost = distance[node]+i[1]
-            if cost< distance[i[0]]:
+        for i in graph[now]:
+            cost = dist+i[1]
+            if cost < distance[i[0]]:
                 distance[i[0]]=cost
-                heapq.heappush(h,(cost,i[0]))
+                heapq.heappush(h, (cost,i[0]))
 
 dijkstra(start)
 
