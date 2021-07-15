@@ -1,3 +1,4 @@
+# 최소비용의 신장트리를 찾을때 (양방향 그래프) 적용
 
 def find_parents(parent,x):
     if parent[x]!=x:
