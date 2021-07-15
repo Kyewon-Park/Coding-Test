@@ -16,7 +16,7 @@ for a in range(1,N+1):
         if(a>=b):
             continue
         for k in range(1,N+1):
-            if(graph[a][k]!=INF and graph[k][b]!=INF and graph[k][b]!=0 and graph[a][k]!=0):
+            if(graph[a][k]!=INF and graph[k][b]!=INF and k!=a and k!=b):
                 graph[a][b]= min(graph[a][k],graph[k][b])
 
 kvs=[]

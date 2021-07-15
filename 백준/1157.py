@@ -1,3 +1,8 @@
 import collections 
 
-print(collections.Counter(input().lower()).most_common(1)[0][0].upper())
+input = input().upper()
+li = collections.Counter(input).most_common()
+if len(li)>1 and li[0][1] == li[1][1]:
+    print("?")
+else:
+    print(li[0][0])
