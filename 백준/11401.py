@@ -1,12 +1,7 @@
-#이항계수 3
+n, k = map(int, input().split())
+mod = 1000000007
+fact = [1 for _ in range(n+1)]
 
-def factorial(n,until):
-    if n==until:
-        return until
-    return n*factorial(n-1,until)
+for i in range(2,n+1):
+    fact[i]=fact[i-1]*i
 
-n,k = map(int, input().split())
-top = factorial(n,k+1)
-div = factorial(n-k,1)
-ans = int(top/div)
-print(ans%1000000007)
