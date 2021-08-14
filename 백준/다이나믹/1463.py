@@ -1,10 +1,10 @@
+#1로 만들기
 n=int(input())
-d=[n+1]*(n+1)
-d[1]=0
-for i in [2,3]:
-    for j in range(2,n+1):
-        if j%i==0:
-            d[j]=min(d[j//i]+1,d[j])
-        else:
-            d[j]=min(d[j-1]+1,d[j])
+d=[0]*(n+1)
+for j in range(2,n+1):
+    d[j]=d[j-1]+1
+    if j%3==0:
+        d[j]=min(d[j//3]+1,d[j])        
+    if j%2==0:
+        d[j]=min(d[j//2]+1,d[j])
 print(d[n])
