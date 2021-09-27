@@ -1,3 +1,5 @@
+#새로운 풀이: 빈도수 기준 계수 정렬!!!
+
 n=int(input())
 l = list(map(int,input().split()))
 l.sort()
