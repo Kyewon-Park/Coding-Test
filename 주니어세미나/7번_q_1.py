@@ -9,38 +9,30 @@ nums = list(map(int,input().split()))
 #initialize
 l=len(nums)
 prev=nums[0]
-upCount=1
-downCount=1
-maxUpCount=1
-maxDownCount=1
-def isMaxDown():
-    global maxDownCount
-    if maxDownCount<downCount:
-        maxDownCount=downCount
-def isMaxUp():
-    global maxUpCount
-    if maxUpCount<upCount:
-        maxUpCount=upCount
+upCount=1   #연속 증가 수
+downCount=1 #연속 감소 수
+maxUpCount=1 #최대 연속 감소 수
+maxDownCount=1 #최대 연속 감소 수
 
 for i in range(1,l-1):
     if nums[i]>prev: #새로운 수가 이전 수보다 크다면
         upCount+=1
-        isMaxDown()
+        maxDownCount=max(downCount,maxDownCount)
         downCount=1 #초기화
     elif nums[i]==prev: #같아서 upCount와 downCount둘다 초기화
-        isMaxDown()
+        maxDownCount=max(downCount,maxDownCount)
         downCount=1
-        isMaxUp()
+        maxUpCount=max(upCount,maxUpCount)
         upCount=1 
     else: #작으면 연속 상승한 길이를 max값과 비교하고 max값보다 크면 갱신.
         downCount+=1
-        isMaxUp()
+        maxUpCount=max(upCount,maxUpCount)
         upCount=1 #초기화
     prev=nums[i]
+# 마지막 상태가 아직 반영이 안됐으므로 
+maxDownCount=max(downCount,maxDownCount)
+maxUpCount=max(upCount,maxUpCount)
 
-#마지막 상태가 아직 반영이 안됐으므로 
-isMaxDown()
-isMaxUp()
 if maxDownCount<=2:
     maxDownCount=1
 if maxUpCount<=2:
