@@ -13,6 +13,7 @@ distance=[INF]*(n+1)
 for i in range(m):
     a, b = map(int,input().split())
     graph[a].append((b,1))
+    graph[b].append((a,1))
 
 q=[]
 heapq.heappush(q,(start,0))
@@ -32,4 +33,3 @@ for i in distance[2:]:
     if i!=INF:
         count+=1
 print(count)
-print(distance)
