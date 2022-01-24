@@ -2,9 +2,10 @@
 import sys
 n=int(sys.stdin.readline().strip())
 l = list(map(int,sys.stdin.readline().strip().split()))
-s = set(l)
-sl = sorted(list(s))
-ans=[]
+sl = sorted(list(set(l)))
+dic = {v:i for i,v in enumerate(sl)}
+ans=''
 for i in l:
-    ans.append(sl.index(i))
-print(*ans, sep=' ')
+    ans += str(dic[i]) 
+    ans += ' '
+print(ans)
