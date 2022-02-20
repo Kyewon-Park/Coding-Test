@@ -5,17 +5,24 @@ n = int(input().strip())
 l=[]
 for _ in range(n):
     l.append(list(map(int,input().strip().split())))
-print(l)
-cross=[0]*n
-delcount=0
-while(True):
-    for i in range(n):
-        for j in range(n):
-            if (l[i][0]>l[j][0] and l[i][1]<l[j][1]) or (l[i][0]<l[j][0] and l[i][1]>l[j][1]):
-                cross[i]+=1
-    idx = cross.index(max(cross))
-    l[idx][0]=l[idx][1]=0
-    delcount+=1
-    if max(cross)==0:
-        break
-print(delcount)
+l.sort(key=lambda x:(x[0],x[1]))
+count=0
+lastl = 0
+lastr = 0
+for i in l:
+    if i[0]>lastl and i[1]>lastr:
+        count+=1
+        lastl = i[0]
+        lastr = i[1]
+count = min(count, n-count)
+left = n-count
+secondcount=0
+lastl = 501
+lastr = 501
+for i in range(n-1,-1,-1):
+    if l[i][0]<lastl and l[i][1]<lastr:
+        secondcount+=1
+        lastl = l[i][0]
+        lastr = l[i][1]
+secondcount = min(secondcount, left-secondcount)
+print(count+secondcount)
