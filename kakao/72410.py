@@ -3,42 +3,37 @@
 
 import string
 def solution(new_id):
-    need = set(string.ascii_lowercase+'-_.0123456789')
     #1
     new_id = new_id.lower()
-    print(f'1: {new_id}')
-    
+    print(new_id)
     #2
+    need = set(string.ascii_lowercase+'-_.0123456789')
     li = [i for i in new_id if i in need]
-    print(f'2: {li}')
+    new_id=''.join(li)
+    print(new_id)
+    
     #3
-    check=False
-    for idx,c in enumerate(li):
-        if c == '.':
-            if(check==True):
-                print(li.pop(idx))
-                li.insert(idx,'');
-            check=True
-        else:
-            check=False
-    print(f'3: {li}')
+    while(".." in new_id):
+        new_id = new_id.replace("..",".")
+    print(new_id)
     #4
-    li = [*''.join(li).strip('.')]
-    print(f'4: {li}')
+    new_id = new_id.strip('.')
+    print(new_id)
     #5
-    if(len(li) == 0):
-        li.append('a')        
+    if(len(new_id) == 0):
+        new_id+='a'
+    print(new_id)
     #6
-    print(len(li))
+    li = list(new_id)
     if(len(li) >= 16):
         li = li[0:15]
         if(li[-1] =='.'):
             del li[-1]
-    print(f'6: {li}')
+    print(li)
     #7
     if(len(li) <= 2):
         while(len(li)<3):
             li.append(li[-1])
-    print(f'7: {li}')
-
     return ''.join(li)
+
+solution('...!@BaT#*..y.abcdefghijklm')
