@@ -1,43 +1,53 @@
 def solution(n, k, cmd):
-    li = [i for i in range(n)]
-    stk = []
-    idx = k
+    stack = []
+    nodes = [i for i in range(n)]
+    now = k
+    #cmd실행
     for c in cmd:
         if c[0]=='D':
-            a,b = c.split()
-            b=int(b)
-            idx+=b
-            if idx>=n:
-                idx=n-1
-            
+            x, num = c.split()
+            for _ in range(int(num)):
+                while nodes[now+1]==-1:
+                    now+=1 
+                now+=1
         elif c[0]=='U':
-            a,b = c.split()
-            b=int(b)
-            idx-=b
-            if idx<0:
-                idx=0
-            
+            x, num = c.split()
+            for i in range(int(num)):
+                while nodes[now-1]==-1:
+                    now-=1 
+                now-=1
         elif c[0]=='C':
-            x = li.pop(idx)
-            stk.append(x)
-            
-        else: # c[0]=='Z'
-            x = stk.pop()
-            li.append(x)
-            li.sort()
+            stack.append(now)
+            nodes[now] = -1
+            preLoc = now
+            if now==n-1:
+                while nodes[now-1]==-1:
+                    now-=1
+                now-=1
+            else:
+                ifPass = False
+                while nodes[now+1]==-1:
+                    now+=1
+                    if now==n-1:
+                        now=preLoc
+                        while nodes[now-1]==-1:
+                            now-=1
+                        now-=1
+                        ifPass=True
+                        break
+                if not ifPass:
+                    now+=1
+                
+        elif c[0]=='Z':
+            location = stack.pop()
+            nodes[location] = location
     
-    ans=''
-    cnt=0
-    for i in li:
-        if i==cnt:
-            ans+='O'
-            cnt+=1
+    result=''
+    for i in range(n):
+        if nodes[i] != i:
+            result+='X'
         else:
-            while cnt < i:
-                cnt+=1
-                ans+='X'
-            ans+='O'
-            cnt+=1
-    return ans
-            
+            result+='O'
+    return result
+    
 print(solution(8,2,["D 2","C","U 3","C","D 4","C","U 2","Z","Z"]))
