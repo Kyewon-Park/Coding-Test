@@ -9,7 +9,18 @@ class Tree():
                 now.children[c]=Tree()
             now = now.children[c]
             now.count+=1
-            
+    def putResult(self,query,result):
+        now=self
+        for c in query:
+            if c == '?':
+                result.append(now.count)
+                break
+            else:
+                if c not in now.children:
+                    result.append(0)
+                    break       
+                now = now.children[c]
+    
 def solution(words, queries):
     result=[]
     root = [Tree() for _ in range(10001)]
@@ -22,37 +33,18 @@ def solution(words, queries):
         
     for query in queries:
         ql = len(query)
-        now = root[ql]
-        
         if query[0] != '?':    
-            for c in query:
-                if c == '?':
-                    result.append(now.count)
-                    break
-                else:
-                    if c not in now.children:
-                        result.append(0)
-                        break       
-                    now = now.children[c]
+            now = root[ql]
+            now.putResult(query,result)
         else:
+            now = reverseRoot[ql]
             if query[-1] == '?': #?????인 경우
                 ans=0
                 for i in now.children.values():
                     ans+=i.count           
                 result.append(ans)
                 break
-
-            now = reverseRoot[ql]
-            query = query[::-1]
-            for c in query:
-                if c == '?':
-                    result.append(now.count)
-                    break
-                else:
-                    if c not in now.children:
-                        result.append(0)
-                        break       
-                    now = now.children[c]
+            now.putResult(query[::-1],result)
     return result
 
     
